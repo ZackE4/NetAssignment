@@ -84,7 +84,7 @@ public partial class _Default : System.Web.UI.Page
                 {
                     Session["User"] = userId;
                     //Go To Home page
-                    ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Login Success')", true);
+                    Response.Redirect("Welcome.aspx");
                 }
             }
         }
