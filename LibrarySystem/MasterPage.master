@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
 
 <!DOCTYPE html>
@@ -31,4 +32,39 @@
         <h1>Created By: Zach and Matt</h1>
     </footer>
 </body>
+=======
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <header>
+        <img src="Images/header.jpg" style="height: 237px; width: 1136px" />
+        <nav>
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>Search Book</a></li>
+                <li><a>Search Publisher</a></li>
+                <li><a>Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    <footer>
+        <h1>Created By: Zach and Matt</h1>
+    </footer>
+</body>
+>>>>>>> 83cc005a0e5f8ae34d65307f4903bdadd276b9c9
 </html>
