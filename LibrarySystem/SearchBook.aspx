@@ -46,7 +46,8 @@
         <br />
         <asp:Label ID="lblBookSyn" runat="server" Text="filler "></asp:Label>
 
-        <asp:Button ID="Button1" runat="server" Text="Button" />
+        <br />
+        <asp:Button ID="btnRequest" runat="server" Text="Request This Book" OnClick="btnRequest_Click" />
 
     </div>
 </asp:Content>
