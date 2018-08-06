@@ -20,13 +20,12 @@
     <div>
         <asp:ListView ID="ListView1" runat="server">
         </asp:ListView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NetAssignConnectionString %>" SelectCommand="SELECT b.Title, FirstName, SecondName, LastName, PublishedDate, g.Title AS 'Genre'
-FROM Author a INNER JOIN Book b 
-ON b.AuthorID = a.AuthorID
-INNER JOIN Genre g
-ON b.GenreID = g.GenreID"></asp:SqlDataSource>
     </div>
     <div>
+
+        <asp:Label ID="lblBookInfo" runat="server" Text="filler"></asp:Label>
+        <br />
+        <asp:Label ID="lblBookSyn" runat="server" Text="filler "></asp:Label>
 
     </div>
 </asp:Content>
