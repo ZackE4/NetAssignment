@@ -32,7 +32,7 @@ public partial class SearchBook : System.Web.UI.Page
         }
         else
         {
-        string sqlCommand= "SELECT b.BookID, b.Title, LastName + ',' + FirstName AS 'Author', g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.Title LIKE @Title AND a.LastName LIKE @LastName AND g.GenreID = @Genre";
+        string sqlCommand= "SELECT b.BookID, b.Title, LastName + ', ' + FirstName AS 'Author', g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.Title LIKE @Title AND a.LastName LIKE @LastName AND g.GenreID = @Genre";
         conn.ConnectionString = conString;
         SqlCommand cmd = conn.CreateCommand();
 
@@ -84,39 +84,37 @@ public partial class SearchBook : System.Web.UI.Page
 
     }
 
-    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
     {
-            
-            int bookID = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
-            string sqlCommand = "SELECT b.Title, FirstName, SecondName, LastName, PublishedDate, b.CoverType, g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.BookID = " + bookID;
-            conn.ConnectionString = conString;
-            SqlCommand cmd = conn.CreateCommand();
+        int bookID = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
+        string sqlCommand = "SELECT b.Title, FirstName, SecondName, LastName, PublishedDate, b.CoverType, g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.BookID = " + bookID;
+        conn.ConnectionString = conString;
+        SqlCommand cmd = conn.CreateCommand();
 
-            try
+        try
+        {
+            cmd.CommandText = sqlCommand;
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            StringBuilder htmlstr = new StringBuilder("");
+            while (reader.Read())
             {
-                cmd.CommandText = sqlCommand;
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                StringBuilder htmlstr = new StringBuilder("");
-                while (reader.Read())
-                {
-                    htmlstr.Append(reader.GetString(0) + "\n " + reader.GetString(1)); 
-                }
-                lblBookInfo.Text = htmlstr.ToString();
-                 reader.Close();
+                htmlstr.Append(reader.GetString(0) + "\n " + reader.GetString(1));
             }
-            catch (Exception ex)
-            {
-                //error
-            }
-            finally
-            {
-                cmd.Dispose();
-                conn.Close();
-            }
+            lblBookInfo.Text = htmlstr.ToString();
+            reader.Close();
+        }
+        catch (Exception ex)
+        {
+            //error
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
         lblBookInfo.Visible = true;
         lblBookSyn.Visible = true;
-        
 
     }
 }
