@@ -11,6 +11,8 @@ public partial class SearchBook : System.Web.UI.Page
 {
     private SqlConnection conn = new SqlConnection();
     private string conString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["NetClassConnectionString"].ConnectionString; 
+    private string conString = "Server=ME\\SQLEXPRESS; Database=NetAssign; User=Matt; Password=Welcome123"; 
+
     private SqlCommand cmd;
 
     protected void Page_Load(object sender, EventArgs e)
