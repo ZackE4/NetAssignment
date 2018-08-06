@@ -32,4 +32,9 @@ public partial class Welcome : System.Web.UI.Page
             btnMemberPage.Visible = true;
         }
     }
+
+    protected void btnMemberPage_Click(object sender, EventArgs e)
+    {
+
+    }
 }

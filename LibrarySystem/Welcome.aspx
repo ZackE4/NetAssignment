@@ -6,7 +6,7 @@
     
     <asp:Label ID="lblWelcome" runat="server" Font-Bold="True" Font-Names="Arial" Font-Size="30pt" ForeColor="#000066" Text="Welcome"></asp:Label>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-    <asp:Button ID="btnMemberPage" runat="server" SkinID="btnBlue" Text="Go To Member Page" BackColor="#000066" ForeColor="White" Visible="False" />
+    <asp:Button ID="btnMemberPage" runat="server" SkinID="btnBlue" Text="Go To Member Page" BackColor="#000066" ForeColor="White" Visible="False" OnClick="btnMemberPage_Click" />
     <br />
     <asp:Button ID="btnLibrarianPage" runat="server" SkinID="btnBlue" Text="Go To Librarian Page" BackColor="#000066" Font-Names="Arial" ForeColor="White" Visible="False" Width="185px" />
     <br />

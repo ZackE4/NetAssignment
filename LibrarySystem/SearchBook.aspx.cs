@@ -18,7 +18,7 @@ public partial class SearchBook : System.Web.UI.Page
     {
         lblBookInfo.Visible = false;
         lblBookSyn.Visible = false;
-        //button
+        btnRequest.Visible = false;
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -74,9 +74,9 @@ public partial class SearchBook : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            //error
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
         }
-        finally
+            finally
         {
             cmd.Dispose();
             conn.Close();
@@ -100,14 +100,18 @@ public partial class SearchBook : System.Web.UI.Page
             StringBuilder htmlstr = new StringBuilder("");
             while (reader.Read())
             {
-                htmlstr.Append(reader.GetString(0) + "\n " + reader.GetString(1));
+                var pub = reader.GetDateTime(4);
+                string publish = pub.ToString();
+                htmlstr.Append("Title: " + reader.GetString(0) + "<br> By:" + reader.GetString(1) + ", " + reader.GetString(2) + ", " + reader.GetString(3)
+                    + "<br> Published On: " + publish + "<br> Cover Type: " + reader.GetString(5));
+
             }
             lblBookInfo.Text = htmlstr.ToString();
             reader.Close();
         }
         catch (Exception ex)
         {
-            //error
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
         }
         finally
         {
@@ -116,6 +120,120 @@ public partial class SearchBook : System.Web.UI.Page
         }
         lblBookInfo.Visible = true;
         lblBookSyn.Visible = true;
+        btnRequest.Visible = true;
+        bookCount(bookID);
+    }
 
+    public void bookCount(int bookID)
+    {
+        string sqlCommand = "SELECT Count(BookID) FROM Issue WHERE BookID = " + bookID;
+        int count = 0;
+        conn.ConnectionString = conString;
+        SqlCommand cmd = conn.CreateCommand();
+
+        try
+        {
+            cmd.CommandText = sqlCommand;
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                count = reader.GetInt32(0);
+            }
+            reader.Close();
+        }
+        catch (Exception ex)
+        {
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+        lblBookSyn.Text = "Book Count: " + count;
+    }
+
+    protected void btnRequest_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            DataRow dr = UserTool.GetUserInfo(Session["User"].ToString());
+            if (dr == null)
+            {
+                Response.Redirect("default.aspx");
+            }
+            else
+            {
+                int memberID = Convert.ToInt32(dr["UserId"].ToString());
+                int bookRentals = booksRented(memberID);
+                if (bookRentals >= Convert.ToInt32(dr["BookLimit"].ToString()))
+                {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Max Book Limit", "alert('You have reached the limit of books rented, please return a book to request this book')", true);
+                }
+                else
+                {
+                    string dateReq = DateTime.Now.Year.ToString() +"-"+ DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString();
+                    //date time is not working, it thinks its a int if its a string
+                    int bookID = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
+                    string sqlCommand = "INSERT INTO Request VALUES (" + dateReq + ", " + bookID + ", " + memberID + ")";
+                    conn.ConnectionString = conString;
+                    SqlCommand cmd = conn.CreateCommand();
+
+                    try
+                    {
+                        cmd.CommandText = sqlCommand;
+                        conn.Open();
+                        cmd.ExecuteScalar();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                        conn.Close();
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("default.aspx");
+        }
+    }
+
+    public int booksRented(int memberID)
+    {
+        int booksRented = 100;
+
+        string sqlCommand = "SELECT Count(*) FROM Rental WHERE UserId = " + memberID;
+        conn.ConnectionString = conString;
+        SqlCommand cmd = conn.CreateCommand();
+
+        try
+        {
+            cmd.CommandText = sqlCommand;
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                booksRented = reader.GetInt32(0);
+            }
+            reader.Close();
+        }
+        catch (Exception ex)
+        {
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        return booksRented;
     }
 }
