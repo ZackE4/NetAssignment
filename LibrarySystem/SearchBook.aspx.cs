@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,7 +16,9 @@ public partial class SearchBook : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        lblBookInfo.Visible = false;
+        lblBookSyn.Visible = false;
+        //button
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -28,7 +31,9 @@ public partial class SearchBook : System.Web.UI.Page
         {
             ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Either Title or Author need to be filled to search')", true);
         }
-        string sqlCommand= "SELECT b.Title, FirstName, SecondName, LastName, PublishedDate, b.CoverType, g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.Title LIKE @Title AND a.LastName LIKE @LastName AND g.GenreID = @Genre";
+        else
+        {
+        string sqlCommand= "SELECT b.BookID, b.Title, LastName + ', ' + FirstName AS 'Author', g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.Title LIKE @Title AND a.LastName LIKE @LastName AND g.GenreID = @Genre";
         conn.ConnectionString = conString;
         SqlCommand cmd = conn.CreateCommand();
 
@@ -58,12 +63,13 @@ public partial class SearchBook : System.Web.UI.Page
             SqlDataReader reader = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(reader);
+                
            /* if (dt.Rows.Count.Equals(0))
             {
 
             }*/
-            ListView1.DataSource = dt;
-            ListView1.DataBind();
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
             reader.Close();
         }
         catch (Exception ex)
@@ -75,13 +81,41 @@ public partial class SearchBook : System.Web.UI.Page
             cmd.Dispose();
             conn.Close();
         }
-
+     }
 
     }
 
-    protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+    protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
     {
-        lblBookInfo.Text = " ";
-        lblBookSyn.Text = " ";
+        int bookID = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
+        string sqlCommand = "SELECT b.Title, FirstName, SecondName, LastName, PublishedDate, b.CoverType, g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.BookID = " + bookID;
+        conn.ConnectionString = conString;
+        SqlCommand cmd = conn.CreateCommand();
+
+        try
+        {
+            cmd.CommandText = sqlCommand;
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            StringBuilder htmlstr = new StringBuilder("");
+            while (reader.Read())
+            {
+                htmlstr.Append(reader.GetString(0) + "\n " + reader.GetString(1));
+            }
+            lblBookInfo.Text = htmlstr.ToString();
+            reader.Close();
+        }
+        catch (Exception ex)
+        {
+            //error
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+        lblBookInfo.Visible = true;
+        lblBookSyn.Visible = true;
+
     }
 }

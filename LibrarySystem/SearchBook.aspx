@@ -18,146 +18,35 @@
         <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
     </div>
     <div>
-        <asp:ListView ID="ListView1" runat="server" OnSelectedIndexChanged="ListView1_SelectedIndexChanged">
-            <AlternatingItemTemplate>
-                <li style="background-color: #FFFFFF;color: #284775;">Title:
-                    <asp:Label ID="TitleLabel" runat="server" Text='<%# Eval("Title") %>' />
-                    <br />
-                    FirstName:
-                    <asp:Label ID="FirstNameLabel" runat="server" Text='<%# Eval("FirstName") %>' />
-                    <br />
-                    SecondName:
-                    <asp:Label ID="SecondNameLabel" runat="server" Text='<%# Eval("SecondName") %>' />
-                    <br />
-                    LastName:
-                    <asp:Label ID="LastNameLabel" runat="server" Text='<%# Eval("LastName") %>' />
-                    <br />
-                    PublishedDate:
-                    <asp:Label ID="PublishedDateLabel" runat="server" Text='<%# Eval("PublishedDate") %>' />
-                    <br />
-                    CoverType:
-                    <asp:Label ID="CoverTypeLabel" runat="server" Text='<%# Eval("CoverType") %>' />
-                    <br />
-                    Genre:
-                    <asp:Label ID="GenreLabel" runat="server" Text='<%# Eval("Genre") %>' />
-                    <br />
-                </li>
-            </AlternatingItemTemplate>
-            <EditItemTemplate>
-                <li style="background-color: #999999;">Title:
-                    <asp:TextBox ID="TitleTextBox" runat="server" Text='<%# Bind("Title") %>' />
-                    <br />
-                    FirstName:
-                    <asp:TextBox ID="FirstNameTextBox" runat="server" Text='<%# Bind("FirstName") %>' />
-                    <br />
-                    SecondName:
-                    <asp:TextBox ID="SecondNameTextBox" runat="server" Text='<%# Bind("SecondName") %>' />
-                    <br />
-                    LastName:
-                    <asp:TextBox ID="LastNameTextBox" runat="server" Text='<%# Bind("LastName") %>' />
-                    <br />
-                    PublishedDate:
-                    <asp:TextBox ID="PublishedDateTextBox" runat="server" Text='<%# Bind("PublishedDate") %>' />
-                    <br />
-                    CoverType:
-                    <asp:TextBox ID="CoverTypeTextBox" runat="server" Text='<%# Bind("CoverType") %>' />
-                    <br />
-                    Genre:
-                    <asp:TextBox ID="GenreTextBox" runat="server" Text='<%# Bind("Genre") %>' />
-                    <br />
-                    <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
-                </li>
-            </EditItemTemplate>
-            <EmptyDataTemplate>
-                No data was returned.
-            </EmptyDataTemplate>
-            <InsertItemTemplate>
-                <li style="">Title:
-                    <asp:TextBox ID="TitleTextBox" runat="server" Text='<%# Bind("Title") %>' />
-                    <br />FirstName:
-                    <asp:TextBox ID="FirstNameTextBox" runat="server" Text='<%# Bind("FirstName") %>' />
-                    <br />SecondName:
-                    <asp:TextBox ID="SecondNameTextBox" runat="server" Text='<%# Bind("SecondName") %>' />
-                    <br />LastName:
-                    <asp:TextBox ID="LastNameTextBox" runat="server" Text='<%# Bind("LastName") %>' />
-                    <br />PublishedDate:
-                    <asp:TextBox ID="PublishedDateTextBox" runat="server" Text='<%# Bind("PublishedDate") %>' />
-                    <br />CoverType:
-                    <asp:TextBox ID="CoverTypeTextBox" runat="server" Text='<%# Bind("CoverType") %>' />
-                    <br />Genre:
-                    <asp:TextBox ID="GenreTextBox" runat="server" Text='<%# Bind("Genre") %>' />
-                    <br />
-                    <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
-                    <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
-                </li>
-            </InsertItemTemplate>
-            <ItemSeparatorTemplate>
-<br />
-            </ItemSeparatorTemplate>
-            <ItemTemplate>
-                <li style="background-color: #E0FFFF;color: #333333;">Title:
-                    <asp:Label ID="TitleLabel" runat="server" Text='<%# Eval("Title") %>' />
-                    <br />
-                    FirstName:
-                    <asp:Label ID="FirstNameLabel" runat="server" Text='<%# Eval("FirstName") %>' />
-                    <br />
-                    SecondName:
-                    <asp:Label ID="SecondNameLabel" runat="server" Text='<%# Eval("SecondName") %>' />
-                    <br />
-                    LastName:
-                    <asp:Label ID="LastNameLabel" runat="server" Text='<%# Eval("LastName") %>' />
-                    <br />
-                    PublishedDate:
-                    <asp:Label ID="PublishedDateLabel" runat="server" Text='<%# Eval("PublishedDate") %>' />
-                    <br />
-                    CoverType:
-                    <asp:Label ID="CoverTypeLabel" runat="server" Text='<%# Eval("CoverType") %>' />
-                    <br />
-                    Genre:
-                    <asp:Label ID="GenreLabel" runat="server" Text='<%# Eval("Genre") %>' />
-                    <br />
-                </li>
-            </ItemTemplate>
-            <LayoutTemplate>
-                <ul id="itemPlaceholderContainer" runat="server" style="font-family: Verdana, Arial, Helvetica, sans-serif;">
-                    <li runat="server" id="itemPlaceholder" />
-                </ul>
-                <div style="text-align: center;background-color: #5D7B9D;font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;">
-                </div>
-            </LayoutTemplate>
-            <SelectedItemTemplate>
-                <li style="background-color: #E2DED6;font-weight: bold;color: #333333;">Title:
-                    <asp:Label ID="TitleLabel" runat="server" Text='<%# Eval("Title") %>' />
-                    <br />
-                    FirstName:
-                    <asp:Label ID="FirstNameLabel" runat="server" Text='<%# Eval("FirstName") %>' />
-                    <br />
-                    SecondName:
-                    <asp:Label ID="SecondNameLabel" runat="server" Text='<%# Eval("SecondName") %>' />
-                    <br />
-                    LastName:
-                    <asp:Label ID="LastNameLabel" runat="server" Text='<%# Eval("LastName") %>' />
-                    <br />
-                    PublishedDate:
-                    <asp:Label ID="PublishedDateLabel" runat="server" Text='<%# Eval("PublishedDate") %>' />
-                    <br />
-                    CoverType:
-                    <asp:Label ID="CoverTypeLabel" runat="server" Text='<%# Eval("CoverType") %>' />
-                    <br />
-                    Genre:
-                    <asp:Label ID="GenreLabel" runat="server" Text='<%# Eval("Genre") %>' />
-                    <br />
-                </li>
-            </SelectedItemTemplate>
-        </asp:ListView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT Book.Title, Author.FirstName, Author.SecondName, Author.LastName, Book.PublishedDate, Book.CoverType, Genre.Title AS Genre FROM Book INNER JOIN Genre ON Book.GenreId = Genre.GenreId INNER JOIN Author ON Book.AuthorId = Author.AuthorId"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT Book.BookID, Book.Title, Author.LastName + ', ' + Author.FirstName AS Author, Genre.Title AS Genre FROM Book INNER JOIN Genre ON Book.GenreId = Genre.GenreId INNER JOIN Author ON Book.AuthorId = Author.AuthorId"></asp:SqlDataSource>
+        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="BookID" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged1">
+            <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <asp:CommandField ShowSelectButton="True" />
+                <asp:BoundField DataField="BookID" HeaderText="BookID" InsertVisible="False" ReadOnly="True" SortExpression="BookID" />
+                <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
+                <asp:BoundField DataField="Author" HeaderText="Author" ReadOnly="True" SortExpression="Author" />
+                <asp:BoundField DataField="Genre" HeaderText="Genre" SortExpression="Genre" />
+            </Columns>
+            <EditRowStyle BackColor="#2461BF" />
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#EFF3FB" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+        </asp:GridView>
     </div>
     <div>
 
         <asp:Label ID="lblBookInfo" runat="server" Text="filler"></asp:Label>
         <br />
         <asp:Label ID="lblBookSyn" runat="server" Text="filler "></asp:Label>
+
+        <asp:Button ID="Button1" runat="server" Text="Button" />
 
     </div>
 </asp:Content>
