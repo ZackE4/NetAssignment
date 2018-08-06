@@ -16,7 +16,8 @@ public partial class SearchBook : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        lblBookInfo.Visible = false;
+        lblBookSyn.Visible = false;
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -85,6 +86,7 @@ public partial class SearchBook : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
+            
             int bookID = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
             string sqlCommand = "SELECT b.Title, FirstName, SecondName, LastName, PublishedDate, b.CoverType, g.Title AS 'Genre' FROM Author a INNER JOIN Book b ON b.AuthorID = a.AuthorID INNER JOIN Genre g ON b.GenreID = g.GenreID WHERE b.BookID = " + bookID;
             conn.ConnectionString = conString;
@@ -112,6 +114,8 @@ public partial class SearchBook : System.Web.UI.Page
                 cmd.Dispose();
                 conn.Close();
             }
+        lblBookInfo.Visible = true;
+        lblBookSyn.Visible = true;
         
 
     }
