@@ -8,7 +8,7 @@
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body style="background-color:silver;">
     <header>
         <img src="Images/header.jpg" style="height: 237px; width: 1136px" />
         <nav>

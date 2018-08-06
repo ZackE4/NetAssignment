@@ -8,9 +8,9 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
     <asp:Button ID="btnMemberPage" runat="server" SkinID="btnBlue" Text="Go To Member Page" BackColor="#000066" ForeColor="White" Visible="False" OnClick="btnMemberPage_Click" />
     <br />
-    <asp:Button ID="btnLibrarianPage" runat="server" SkinID="btnBlue" Text="Go To Librarian Page" BackColor="#000066" Font-Names="Arial" ForeColor="White" Visible="False" Width="185px" />
+    <asp:Button ID="btnLibrarianPage" runat="server" SkinID="btnBlue" Text="Go To Librarian Page" BackColor="#000066" Font-Names="Arial" ForeColor="White" Visible="False" Width="185px" OnClick="btnLibrarianPage_Click" />
     <br />
-    <asp:Button ID="btnAdminPage" runat="server" SkinID="btnBlue" Text="Go To Admin Page" BackColor="#000066" ForeColor="White" Visible="False" Width="186px" />
+    <asp:Button ID="btnAdminPage" runat="server" SkinID="btnBlue" Text="Go To Admin Page" BackColor="#000066" ForeColor="White" Visible="False" Width="186px" OnClick="btnAdminPage_Click" />
     <br />
     <br />
     <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/CatinHatLibrary.jpg" Width="800px" />
