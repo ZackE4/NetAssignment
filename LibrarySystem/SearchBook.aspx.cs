@@ -18,6 +18,7 @@ public partial class SearchBook : System.Web.UI.Page
     {
         lblBookInfo.Visible = false;
         lblBookSyn.Visible = false;
+        //button
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
