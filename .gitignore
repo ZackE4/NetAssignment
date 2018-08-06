@@ -1,0 +1,9 @@
+
+*.config
+.vs/LibrarySystem/v15/.suo
+.vs/config/applicationhost.config
+.vs/LibrarySystem/v15/Server/sqlite3/storage.ide-shm
+.vs/LibrarySystem/v15/Server/sqlite3/storage.ide-wal
+.vs/LibrarySystem/v15/Server/sqlite3/storage.ide-shm
+.vs/LibrarySystem/v15/.suo
+.vs/LibrarySystem/v15/Server/sqlite3/storage.ide-wal

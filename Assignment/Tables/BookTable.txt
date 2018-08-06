@@ -1,0 +1,24 @@
+USE [NetAssign]
+GO
+
+/****** Object:  Table [dbo].[Book]    Script Date: 2018-08-06 12:17:30 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Book](
+	[BookId] [int] IDENTITY(1,1) NOT NULL,
+	[AuthorId] [int] NOT NULL,
+	[GenreId] [int] NOT NULL,
+	[PublisherId] [int] NOT NULL,
+	[PublishedDate] [date] NOT NULL,
+	[CoverType] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED 
+(
+	[BookId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
