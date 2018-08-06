@@ -13,7 +13,14 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        bool newuser = false;
+        try { newuser = Convert.ToBoolean(Request["newuser"].ToString()); }
+        catch { }
 
+        if (newuser)
+        {
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Registration Success, Please login')", true);
+        }
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
@@ -23,6 +30,7 @@ public partial class _Default : System.Web.UI.Page
         LibConnect.ConnectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["NetClassConnectionString"].ConnectionString;
         SqlCommand cmd = LibConnect.CreateCommand();
 
+        string userId = "";
         string user = tbUser.Text;
         string pass = tbPass.Text;
         if (String.IsNullOrEmpty(user) || String.IsNullOrEmpty(pass))
@@ -59,6 +67,7 @@ public partial class _Default : System.Web.UI.Page
                     }
                     else
                     {
+                        userId = dr["UserId"].ToString();
                         loginSuccess = true;
                     }
                 }
@@ -73,6 +82,7 @@ public partial class _Default : System.Web.UI.Page
                 LibConnect.Close();
                 if (loginSuccess)
                 {
+                    Session["User"] = userId;
                     //Go To Home page
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Login Success')", true);
                 }
