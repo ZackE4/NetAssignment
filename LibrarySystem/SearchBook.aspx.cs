@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 public partial class SearchBook : System.Web.UI.Page
 {
     private SqlConnection conn = new SqlConnection();
-    private string conString = "Server=ME\SQLEXPRESS; Database=NetAssign; User=Matt; Password=Welcome123"; 
+    private string conString = "Server=ME\\SQLEXPRESS; Database=NetAssign; User=Matt; Password=Welcome123"; 
     private SqlCommand cmd;
 
     protected void Page_Load(object sender, EventArgs e)

@@ -33,7 +33,7 @@ public partial class _Default : System.Web.UI.Page
         {
             try
             {
-                string query = "Select * FROM User WHERE UserId=@User";
+                string query = "Select * FROM [User] WHERE Username=@User";
                 SqlParameter userParam = new SqlParameter();
                 userParam.ParameterName = "@User";
                 userParam.Value = user;
@@ -63,7 +63,7 @@ public partial class _Default : System.Web.UI.Page
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Something went wrong, Oops.')", true);
             }
