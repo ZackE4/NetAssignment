@@ -11,7 +11,6 @@ public partial class SearchBook : System.Web.UI.Page
 {
     private SqlConnection conn = new SqlConnection();
     private string conString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["NetClassConnectionString"].ConnectionString; 
-
     private SqlCommand cmd;
 
     protected void Page_Load(object sender, EventArgs e)

@@ -18,12 +18,12 @@
         <br />
         <asp:Label ID="Label2" runat="server" Text="Password" Font-Names="Arial" ForeColor="#000066"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:TextBox ID="tbPass" runat="server"></asp:TextBox>
+        <asp:TextBox ID="tbPass" runat="server" TextMode="Password"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvPass" runat="server" ControlToValidate="tbPass" Display="Dynamic" ErrorMessage="RequiredFieldValidator" Font-Bold="True" Font-Names="Arial" ForeColor="Red">*Required</asp:RequiredFieldValidator>
         <br />
         <asp:Label ID="Label3" runat="server" Text="Confirm Password" Font-Names="Arial" ForeColor="#000066"></asp:Label>
 &nbsp;&nbsp;&nbsp;
-        <asp:TextBox ID="tbConfirmPass" runat="server"></asp:TextBox>
+        <asp:TextBox ID="tbConfirmPass" runat="server" TextMode="Password"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvConfirmPass" runat="server" ControlToValidate="tbConfirmPass" Display="Dynamic" ErrorMessage="RequiredFieldValidator" Font-Bold="True" Font-Names="Arial" ForeColor="Red">*Required</asp:RequiredFieldValidator>
         <br />
         <br />
@@ -51,7 +51,7 @@
         <br />
         <asp:Button ID="Button1" runat="server" BackColor="#000066" CausesValidation="False" Font-Names="Arial" ForeColor="White" OnClick="Button1_Click" Text="Cancel" />
 &nbsp;
-        <asp:Button ID="btnSubmit" runat="server" Text="Submit" BackColor="#000066" Font-Names="Arial" ForeColor="White" />
+        <asp:Button ID="btnSubmit" runat="server" Text="Submit" BackColor="#000066" Font-Names="Arial" ForeColor="White" OnClick="btnSubmit_Click" />
     &nbsp;</form>
 </body>
 </html>
