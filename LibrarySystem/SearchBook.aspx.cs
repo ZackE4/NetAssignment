@@ -130,12 +130,20 @@ public partial class SearchBook : System.Web.UI.Page
         lblBookInfo.Visible = true;
         lblBookSyn.Visible = true;
         btnRequest.Visible = true;
-        bookCount(bookID);
+        int numOfBooks = bookCount(bookID);
+        if (numOfBooks < 1)
+        {
+            btnRequest.Enabled = false;
+        }
+        else
+        {
+            btnRequest.Enabled = true;
+        }
     }
 
-    public void bookCount(int bookID)
+    public int bookCount(int bookID)
     {
-        string sqlCommand = "SELECT Count(BookID) FROM Issue WHERE BookID = " + bookID;
+        string sqlCommand = "SELECT Count(BookID) FROM Issue WHERE BookID = " + bookID + " AND Status = 'Available'";
         int count = 0;
         conn.ConnectionString = conString;
         SqlCommand cmd = conn.CreateCommand();
@@ -161,6 +169,7 @@ public partial class SearchBook : System.Web.UI.Page
             conn.Close();
         }
         lblBookSyn.Text = "Book Count: " + count;
+        return count;
     }
 
     protected void btnRequest_Click(object sender, EventArgs e)
@@ -182,10 +191,11 @@ public partial class SearchBook : System.Web.UI.Page
                 }
                 else
                 {
-                    string dateReq = DateTime.Now.Year.ToString() +"-"+ DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString();
-                    //date time is not working, it thinks its a int if its a string
-                    int bookID = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
-                    string sqlCommand = "INSERT INTO Request VALUES (" + dateReq + ", " + bookID + ", " + memberID + ")";
+                    DateTime dateReq = DateTime.Now;
+                    int bookId = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);//grabs the book id from the gridview
+                    int issueId = findIssue(bookId);//grabs all issues that have an available issue for the corresponding book
+                    //
+                    string sqlCommand = "INSERT INTO Request VALUES ('" + dateReq.ToString() + "', " + issueId + ", " + memberID + ")";
                     conn.ConnectionString = conString;
                     SqlCommand cmd = conn.CreateCommand();
 
@@ -205,6 +215,8 @@ public partial class SearchBook : System.Web.UI.Page
                         cmd.Dispose();
                         conn.Close();
                     }
+                    changeStatus(issueId);
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Book Requested", "alert('The Book has been requested!')", true);
                 }
             }
         }
@@ -212,6 +224,74 @@ public partial class SearchBook : System.Web.UI.Page
         {
             Response.Redirect("default.aspx");
         }
+    }
+
+    private void changeStatus(int issueId)
+    {
+        string sqlCommand = "UPDATE Issue SET Status = 'Reserved' WHERE IssueId =" + issueId;
+        conn.ConnectionString = conString;
+        SqlCommand cmd = conn.CreateCommand();
+
+        try
+        {
+            cmd.CommandText = sqlCommand;
+            conn.Open();
+            cmd.ExecuteScalar();
+
+        }
+        catch (Exception ex)
+        {
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+    }
+
+    private int findIssue(int bookId)
+    {
+        int issueId = 0;
+        try
+        {
+            DataRow dr = UserTool.GetUserInfo(Session["User"].ToString());
+            if (dr == null)
+            {
+                Response.Redirect("default.aspx");
+            }
+            else
+            {
+                    string sqlCommand = "SELECT * FROM Issue WHERE BookId ="+ bookId + " AND Status = 'Available'";
+                    conn.ConnectionString = conString;
+                    SqlCommand cmd = conn.CreateCommand();
+
+                    try
+                    {
+                    cmd.CommandText = sqlCommand;
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            issueId = reader.GetInt32(0);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                        conn.Close();
+                    }
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("default.aspx");
+        }
+        return issueId;
     }
 
     public int booksRented(int memberID)
