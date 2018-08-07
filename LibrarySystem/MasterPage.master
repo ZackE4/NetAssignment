@@ -12,14 +12,15 @@
     <header>
         <img src="Images/header.jpg" style="height: 237px; width: 1136px" />
         <nav>
-            <ul>
-                <li><a>Home</a></li>
-                <li><a>Search Book</a></li>
-                <li><a>Search Publisher</a></li>
-                <li><a>Profile</a></li>
+            <ul style="overflow: hidden; list-style: none;background-color: #808080; margin: 0;padding: 0;width: 100%;top: 0;">
+                <li style="float:left;border-right: 1px solid #bbb;"><a href="Welcome.aspx" style="text-decoration: none;display: block;padding: 4px;">Home</a></li>
+                <li style="float:left;border-right: 1px solid #bbb;"><a href="SearchBook.aspx" style="text-decoration: none;display: block;padding: 4px;">Search Book</a></li>
+                <li style="float:left;border-right: 1px solid #bbb;"><a href="SearchPublisher.aspx" style="text-decoration: none;display: block;padding: 4px;">Search Publisher</a></li>
+                <li style="float:left;border-right: 1px solid #bbb;"><a href="Profile.aspx" style="text-decoration: none;display: block;padding: 4px;">Profile</a></li>
             </ul>
         </nav>
     </header>
+    <hr />
     <form id="form1" runat="server">
     <div>
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
@@ -27,6 +28,7 @@
         </asp:ContentPlaceHolder>
     </div>
     </form>
+    <hr />
     <footer>
         <h1>Created By: Zach and Matt</h1>
     </footer>

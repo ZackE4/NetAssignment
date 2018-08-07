@@ -21,6 +21,15 @@ public partial class SearchBook : System.Web.UI.Page
         btnRequest.Visible = false;
     }
 
+    public string mergeSearch(string searchWord)
+    {
+        string temp = "%";
+        temp += searchWord;
+        searchWord = temp;
+        searchWord += "%";
+        return searchWord;
+    }
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         string title = txtTitle.Text;
@@ -39,8 +48,8 @@ public partial class SearchBook : System.Web.UI.Page
 
         try
         {
-            title += "%";
-            authorLast += "%";
+            title = mergeSearch(title);
+            authorLast = mergeSearch(authorLast);
             SqlParameter titleParam = new SqlParameter();
             titleParam.ParameterName = "@Title";
             titleParam.Value = title;
