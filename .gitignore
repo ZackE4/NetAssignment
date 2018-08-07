@@ -32,5 +32,14 @@ LibrarySystem/MasterPage.master.cs
 .vs/LibrarySystem/v15/Server/sqlite3/storage.ide-wal
 LibrarySystem/Web.config
 .vs/config/applicationhost.config
+<<<<<<< HEAD
 .vs/config/applicationhost.config
+=======
+.vs/LibrarySystem/v15/.suo
+.vs/LibrarySystem/v15/Server/sqlite3/storage.ide-shm
+.vs/LibrarySystem/v15/Server/sqlite3/storage.ide-wal
+.vs/LibrarySystem/v15/.suo
+.vs/config/applicationhost.config
+.vs/LibrarySystem/v15/Server/sqlite3/storage.ide
+>>>>>>> 935b2fa4728e60ddf0a1d7c651bd2df335d63c73
 LibrarySystem/Web.config
