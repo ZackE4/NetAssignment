@@ -12,6 +12,11 @@ public partial class Member : System.Web.UI.Page
     private SqlConnection conn = new SqlConnection();
     private string conString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["NetClassConnectionString"].ConnectionString;
     private SqlCommand cmd;
+    /// <summary>
+    /// Loads all the data needed for the member
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void Page_Load(object sender, EventArgs e)
     {
         lblHistoryMissing.Visible = false;
@@ -20,7 +25,9 @@ public partial class Member : System.Web.UI.Page
         loadHistory();
         amountOwing();
     }
-
+    /// <summary>
+    /// Sets the amount owing for the label to inform the user
+    /// </summary>
     private void amountOwing()
     {
         try
@@ -78,7 +85,9 @@ public partial class Member : System.Web.UI.Page
             Response.Redirect("default.aspx");
         }
     }
-
+    /// <summary>
+    /// loads the history of the user
+    /// </summary>
     private void loadHistory()
     {
         try
@@ -143,7 +152,9 @@ public partial class Member : System.Web.UI.Page
             Response.Redirect("default.aspx");
         }
     }
-
+    /// <summary>
+    /// loads all current rentals
+    /// </summary>
     private void loadCurrentRentals()
     {
         try

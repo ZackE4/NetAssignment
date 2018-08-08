@@ -617,7 +617,7 @@ public partial class LibrarianPage : System.Web.UI.Page
                     while (reader.Read())
                     {
                         fee = reader.GetDouble(0).ToString();
-                        lblFee.Text = "The Fee for the user is: " + fee;
+                        lblFee.Text = "The Fee for the user is: $" + fee;
                     }
                     lblFee.Visible = true;
                     reader.Close();
@@ -895,7 +895,10 @@ public partial class LibrarianPage : System.Web.UI.Page
                     if (reader.HasRows)
                     {
                         insertP = true;
-                        fees = (float) reader.GetInt32(1);
+                        while (reader.Read())
+                        {
+                            fees = (float)reader.GetDouble(0);
+                        }
                     }
                     reader.Close();
                 }
@@ -923,7 +926,7 @@ public partial class LibrarianPage : System.Web.UI.Page
     /// <param name="fees"></param>
     private void insertPayment(int userID, float fees)
     {
-               string sqlCommand = "INSERT INTO Payment (UserId, Fees, AmountPaid, DateOfPayment) Values (@UserId, @Fees, @Fees, GETDATE()) WHERE UserId = @UserId";
+               string sqlCommand = "INSERT INTO Payment(UserId, Fees, AmountPaid, DateOfPayment) VALUES(@UserId, @Fees, @Fees, @date)";
                 conn.ConnectionString = conString;
                 SqlCommand cmd = conn.CreateCommand();
                 try
@@ -936,7 +939,11 @@ public partial class LibrarianPage : System.Web.UI.Page
                     SqlParameter feesParam = new SqlParameter();
                     feesParam.ParameterName = "@Fees";
                     feesParam.Value = fees;
+                    SqlParameter dateParam = new SqlParameter();
+                    dateParam.ParameterName = "@date";
+                    dateParam.Value = DateTime.Now.ToString();
                     cmd.Parameters.Add(feesParam);
+                    cmd.Parameters.Add(dateParam);
                     cmd.Parameters.Add(userIdParam);
                     cmd.ExecuteScalar();
                 }
@@ -970,6 +977,8 @@ public partial class LibrarianPage : System.Web.UI.Page
             cmd.Parameters.Add(userIdParam);
             cmd.ExecuteScalar();
             ClientScript.RegisterClientScriptBlock(this.GetType(), "Success", "alert('The amount has been payed')", true);
+            lblFee.Text = "The Fee Amount is: $0";
+            txtUserId.Text = " ";
         }
         catch (Exception ex)
         {
