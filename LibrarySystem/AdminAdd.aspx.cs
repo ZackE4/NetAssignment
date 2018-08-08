@@ -279,7 +279,6 @@ public partial class AdminAdd : System.Web.UI.Page
 
         if (String.IsNullOrEmpty(bookId) ||
             String.IsNullOrEmpty(printDate) ||
-            String.IsNullOrEmpty(comments) ||
             !DateTime.TryParse(printDate, out printDatetime))
         {
             ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Please enter data for all fields and ensure the date is a proper format')", true);
