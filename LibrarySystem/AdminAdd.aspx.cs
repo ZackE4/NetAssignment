@@ -1,4 +1,11 @@
-﻿using System;
+﻿/// <summary>
+/// This class is the code behind the administrator page for adding new objects for to the database including
+/// Genre, Publisher, Book, Author, Issue
+/// 
+/// By Zack Eichler
+/// </summary>
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,12 +20,19 @@ public partial class AdminAdd : System.Web.UI.Page
     {
 
     }
-
+    /// <summary>
+    /// Changes the multiview to the view for the corresponding object type
+    /// </summary>
     protected void ddSelector_SelectedIndexChanged(object sender, EventArgs e)
     {
         MultiView1.ActiveViewIndex = ddSelector.SelectedIndex;
     }
 
+    /// <summary>
+    /// Inserts new genre into the table
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAddGenre_Click(object sender, EventArgs e)
     {
         bool addSuccess = true;
@@ -78,6 +92,12 @@ public partial class AdminAdd : System.Web.UI.Page
         }
     }
 
+
+    /// <summary>
+    /// Inserts new publisher into table
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAddPub_Click(object sender, EventArgs e)
     {
         bool addSuccess = true;
@@ -160,6 +180,11 @@ public partial class AdminAdd : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Inserts new author into table
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAddAuthor_Click(object sender, EventArgs e)
     {
         bool addSuccess = true;
@@ -235,6 +260,11 @@ public partial class AdminAdd : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Inserts new Issue into table
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAddIssue_Click(object sender, EventArgs e)
     {
         bool addSuccess = true;
@@ -304,6 +334,11 @@ public partial class AdminAdd : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Inserts new book into table
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAddBook_Click(object sender, EventArgs e)
     {
         bool addSuccess = true;

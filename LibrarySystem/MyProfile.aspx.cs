@@ -1,4 +1,11 @@
-﻿using System;
+﻿/// <summary>
+/// This class is the code behind the my profile page for users to edit their personal info or change their profile picture
+/// 
+/// By Zack Eichler
+/// </summary>
+/// 
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,6 +17,13 @@ using System.Web.UI.WebControls;
 public partial class MyProfile : System.Web.UI.Page
 {
     DataRow userRow;
+
+    /// <summary>
+    /// Gets userId from the session and pulls the row from the user table for the selected user to be used to dynamically
+    /// populate the page with the user's information
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -38,11 +52,21 @@ public partial class MyProfile : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Updates the image based on the selected picture title
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void ddProfilePic_SelectedIndexChanged(object sender, EventArgs e)
     {
         imgProfilePic.ImageUrl = "Images/" + ddProfilePic.SelectedIndex.ToString() + ".png";
     }
 
+    /// <summary>
+    /// Updates row in the user table for logged in user with new information from textboxes
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
         string fName = tbFName.Text;

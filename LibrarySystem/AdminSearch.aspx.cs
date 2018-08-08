@@ -1,4 +1,11 @@
-﻿using System;
+﻿/// <summary>
+/// This class is the code behind the administrator page for searching and editing objects in the database including
+/// Genre, Publisher, Book, Author, Issue
+/// 
+/// By Zack Eichler
+/// </summary>
+
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,11 +21,21 @@ public partial class Admin_Search : System.Web.UI.Page
 
     }
 
+    /// <summary>
+    /// Selects the object type to search/edit, changes the view of the multiview accordingly
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void ddSelector_SelectedIndexChanged(object sender, EventArgs e)
     {
         MultiView1.ActiveViewIndex = ddSelector.SelectedIndex;
     }
 
+    /// <summary>
+    /// Selects users from the database and populates a gridview with results based on search conditions
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSearchUser_Click(object sender, EventArgs e)
     {
         string username = tbUserName.Text;
@@ -98,6 +115,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Populates edit textboxes with data from selected item on the gridview
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         int userId = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
@@ -148,6 +170,11 @@ public partial class Admin_Search : System.Web.UI.Page
 
     }
 
+    /// <summary>
+    /// Updates book table with new values from edit textboxes
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnBookEditSubmit_Click(object sender, EventArgs e)
     {
         string title = tbEditBookTitle.Text;
@@ -209,6 +236,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Updates user table with new values from edit textboxes
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnUserEditSubmit_Click(object sender, EventArgs e)
     {
         string fname = tbEditFName.Text;
@@ -307,6 +339,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Selects Books from the database and populates a gridview with results based on search conditions
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSearchBook_Click(object sender, EventArgs e)
     {
         string bookTitle = tbBookTitle.Text;
@@ -354,6 +391,11 @@ public partial class Admin_Search : System.Web.UI.Page
 
     }
 
+    /// <summary>
+    /// Populates edit textboxes for Book with data from selected item on the gridview
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
     {
         int bookid = Convert.ToInt32(GridView2.SelectedRow.Cells[1].Text);
@@ -399,6 +441,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Selects Authors from the database and populates a gridview with results based on search conditions
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAuthorSearch_Click(object sender, EventArgs e)
     {
         string lastname = tbAuthorLastName.Text;
@@ -444,6 +491,9 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Clears all textboxes for edit user view
+    /// </summary>
     private void ClearEditUserTextBoxes()
     {
         tbEditFName.Text = "";
@@ -460,6 +510,9 @@ public partial class Admin_Search : System.Web.UI.Page
         tbEmail.Text = "";
     }
 
+    /// <summary>
+    /// Clears all textboxes for edit book view
+    /// </summary>
     private void ClearEditBookTextBoxes()
     {
         tbEditBookTitle.Text = "";
@@ -469,6 +522,11 @@ public partial class Admin_Search : System.Web.UI.Page
         GridView2.DataBind();
     }
 
+    /// <summary>
+    /// Populates edit textboxes for Author with data from selected item on the gridview
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
     {
         int authorid = Convert.ToInt32(GridView3.SelectedRow.Cells[1].Text);
@@ -515,6 +573,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Updates Author table with new values from edit textboxes
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnEditAuthorSubmit_Click(object sender, EventArgs e)
     {
         string firstname = tbEditAuthorFirstName.Text;
@@ -582,6 +645,9 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Clears all textboxes from edit author viw
+    /// </summary>
     private void ClearEditAuthorTextBoxes()
     {
         tbEditAuthorFirstName.Text = "";
@@ -593,6 +659,11 @@ public partial class Admin_Search : System.Web.UI.Page
         tbAuthorLastName.Text = "";
     }
 
+    /// <summary>
+    /// Selects publishers from the database and loads them into a gridview based on search conditions
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnPublisherSearch_Click(object sender, EventArgs e)
     {
         string pubName = tbPubName.Text;
@@ -638,6 +709,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Populates edit publisher textboxes with values from selected publisher
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void GridView4_SelectedIndexChanged(object sender, EventArgs e)
     {
         int pubId = Convert.ToInt32(GridView4.SelectedRow.Cells[1].Text);
@@ -685,6 +761,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Updates publisher table with new values
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnEditPubSubmit_Click(object sender, EventArgs e)
     {
         string name = tbEditPubName.Text;
@@ -757,6 +838,9 @@ public partial class Admin_Search : System.Web.UI.Page
 
     }
 
+    /// <summary>
+    /// Clears all textboxes in edit publisher view
+    /// </summary>
     private void ClearEditPublisherTextBoxes()
     {
         tbEditPubName.Text = "";
@@ -768,7 +852,12 @@ public partial class Admin_Search : System.Web.UI.Page
         GridView4.DataBind();
         tbPubName.Text = "";
     }
-
+    
+    /// <summary>
+    /// Selects genres from the database and loads them into a gridview based on genre title
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnGenreSearch_Click(object sender, EventArgs e)
     {
         string genreName = tbGenreName.Text;
@@ -814,6 +903,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Populates edit genre textboxes with values from selected genre in gridview
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void GridView5_SelectedIndexChanged(object sender, EventArgs e)
     {
         int genreId = Convert.ToInt32(GridView5.SelectedRow.Cells[1].Text);
@@ -858,6 +952,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Updates genre in the database with new values from edit textboxes
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSubmitEditGenre_Click(object sender, EventArgs e)
     {
         string title = tbEditGenreName.Text;
@@ -910,6 +1009,9 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Clears all textboxes in the edit genre view
+    /// </summary>
     private void ClearEditGenreTextBoxes()
     {
         tbEditGenreName.Text = "";
@@ -919,6 +1021,11 @@ public partial class Admin_Search : System.Web.UI.Page
         tbGenreName.Text = "";
     }
 
+    /// <summary>
+    /// Deletes selected genre in gridview from database
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnDeleteGenre_Click(object sender, EventArgs e)
     {
         int genreId = Convert.ToInt32(GridView5.SelectedRow.Cells[1].Text);
@@ -953,6 +1060,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Deletes selected publisher in gridview from database
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnDeletePublisher_Click(object sender, EventArgs e)
     {
         int pubId = Convert.ToInt32(GridView4.SelectedRow.Cells[1].Text);
@@ -987,6 +1099,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Deletes selected Author in gridview from database
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnDeleteAuthor_Click(object sender, EventArgs e)
     {
         int authorId = Convert.ToInt32(GridView3.SelectedRow.Cells[1].Text);
@@ -1021,6 +1138,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Deletes selected Book in gridview from database
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnDeleteBook_Click(object sender, EventArgs e)
     {
         int bookId = Convert.ToInt32(GridView2.SelectedRow.Cells[1].Text);
@@ -1055,6 +1177,11 @@ public partial class Admin_Search : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Deletes selected User in gridview from database
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnDeleteUser_Click(object sender, EventArgs e)
     {
         int userId = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
