@@ -11,9 +11,9 @@
                 <asp:Button ID="btnUsers" runat="server" Text="Extend Due Date" OnClick="btnUsers_Click" SkinID="btn" />
                 <asp:Button ID="btnReturn" runat="server" Text="Return Book" OnClick="btnReturn_Click" SkinID="btn" />
                 <asp:Button ID="btnFees" runat="server" Text="Pay Fees" OnClick="btnFees_Click" SkinID="btn" />
-                <asp:Button ID="btnReport1" runat="server" SkinID="btn" Text="View Report Books" />
-                <asp:Button ID="btnReport2" runat="server" SkinID="btn" Text="View Report OverDue" />
-                <asp:Button ID="Button1" runat="server" SkinID="btn" Text="Button" />
+                <asp:Button ID="btnReport1" runat="server" OnClick="btnReport1_Click" SkinID="btn" Text="View Report Books" />
+                <asp:Button ID="btnReport2" runat="server" OnClick="btnReport2_Click" SkinID="btn" Text="View Report OverDue" />
+                <asp:Button ID="btnReport3" runat="server" OnClick="btnReport3_Click" SkinID="btn" Text="View Report Books" />
             </asp:View>
             <asp:View ID="View2" runat="server">
                 <asp:Label ID="lblSearch" runat="server" Text="User Name: " SkinID="lbl"/>
