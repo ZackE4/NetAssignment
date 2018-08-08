@@ -20,7 +20,7 @@ public partial class LibrarianPage : System.Web.UI.Page
 
     private void dataBindGrid()
     {
-        string sqlCommand = "SELECT Request.RequestId, Request.DateOfRequest, [User].Username, [User].BookLimit, [User].ReIssueLimit, [User].FirstName, [User].LastName, [User].AmountOwing, Book.Title, Book.CoverType, Author.FirstName + ', ' + Author.LastName AS Author FROM Request INNER JOIN [User] ON Request.UserId = [User].UserId INNER JOIN Issue ON Request.IssueId = Issue.IssueId INNER JOIN Book ON Issue.BookId = Book.BookId INNER JOIN Author ON Book.AuthorId = Author.AuthorId";
+        string sqlCommand = "SELECT Request.RequestId, Request.DateOfRequest, [User].Username, [User].BookLimit, [User].ReIssueLimit, [User].FirstName, [User].LastName, [User].AmountOwing, Book.Title, Book.CoverType, Author.FirstName + ', ' + Author.LastName AS Author, Request.IssueId FROM Request INNER JOIN [User] ON Request.UserId = [User].UserId INNER JOIN Issue ON Request.IssueId = Issue.IssueId INNER JOIN Book ON Issue.BookId = Book.BookId INNER JOIN Author ON Book.AuthorId = Author.AuthorId";
         conn.ConnectionString = conString;
         SqlCommand cmd = conn.CreateCommand();
 
@@ -104,6 +104,7 @@ public partial class LibrarianPage : System.Web.UI.Page
         else
         {
                 int requestId = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
+                int issueId = Convert.ToInt32(GridView1.SelectedRow.Cells[12].Text);
                 DataRow dr = UserTool.GetUserInfo(Session["User"].ToString());
                 if (dr["AccountType"].ToString().Equals("Librarian"))
                 {
@@ -135,6 +136,7 @@ public partial class LibrarianPage : System.Web.UI.Page
                             cmd.Dispose();
                             conn.Close();
                         }
+                    issueStatusChange(issueId);
                     deleteRequest(requestId);
                     dataBindGrid();
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "Request has been Approved", "alert('The Book has been Approved!')", true);
@@ -145,6 +147,51 @@ public partial class LibrarianPage : System.Web.UI.Page
                     Response.Redirect("default.aspx");
                 }
         } 
+    }
+
+    private void issueStatusChange(int issueId)
+    {
+        DataRow dr = UserTool.GetUserInfo(Session["User"].ToString());
+        if (dr["AccountType"].ToString().Equals("Librarian"))
+        {
+            if (dr == null)
+            {
+                Response.Redirect("default.aspx");
+            }
+            else
+            {
+                int[] ids = grabRequest(issueId);
+                DateTime rentalDate = DateTime.Now;
+                DateTime dueDate = rentalDate.AddDays(7);
+                string sqlCommand = "UPDATE Issue SET Status = 'On Loan' WHERE IssueId = @issueId";
+                conn.ConnectionString = conString;
+                SqlCommand cmd = conn.CreateCommand();
+
+                try
+                {
+                    cmd.CommandText = sqlCommand;
+                    conn.Open();
+                    SqlParameter issueIdParam = new SqlParameter();
+                    issueIdParam.ParameterName = "@issueId";
+                    issueIdParam.Value = issueId;
+                    cmd.Parameters.Add(issueIdParam);
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
+        }
+        else
+        {
+            Response.Redirect("Default.aspx");
+        }
     }
 
     private void deleteRequest(int requestId)
@@ -841,16 +888,16 @@ public partial class LibrarianPage : System.Web.UI.Page
 
     protected void btnReport1_Click(object sender, EventArgs e)
     {
-        Response.Redirect(".aspx");
+        Response.Redirect("AllBookReport.aspx");
     }
 
     protected void btnReport2_Click(object sender, EventArgs e)
     {
-        Response.Redirect(".aspx");
+        Response.Redirect("OverdueReport.aspx");
     }
 
     protected void btnReport3_Click(object sender, EventArgs e)
     {
-        Response.Redirect(".aspx");
+        Response.Redirect("IssueBookReport.aspx");
     }
 }

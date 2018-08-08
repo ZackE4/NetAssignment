@@ -110,7 +110,10 @@ public partial class Member : System.Web.UI.Page
                         if (!reader.HasRows)
                         {
                             lblHistoryMissing.Visible = true;
-                            lblRentalMissing.Visible = true;
+                        }
+                        else
+                        {
+                            lblHistoryMissing.Visible = false;
                         }
                         DataTable dt = new DataTable();
                         dt.Load(reader);
@@ -171,8 +174,11 @@ public partial class Member : System.Web.UI.Page
                         SqlDataReader reader = cmd.ExecuteReader();
                         if (!reader.HasRows)
                         {
-                            lblHistoryMissing.Visible = true;
                             lblRentalMissing.Visible = true;
+                        }
+                        else
+                        {
+                            lblRentalMissing.Visible = false;
                         }
                         DataTable dt = new DataTable();
                         dt.Load(reader);

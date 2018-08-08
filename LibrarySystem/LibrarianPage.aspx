@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div>
+        <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Names="Arial" Font-Size="26pt" ForeColor="#000066" Text="Librarian Page"></asp:Label>
         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
             
             <asp:View ID="View1" runat="server">
@@ -13,14 +14,14 @@
                 <asp:Button ID="btnFees" runat="server" Text="Pay Fees" OnClick="btnFees_Click" SkinID="btn" />
                 <asp:Button ID="btnReport1" runat="server" OnClick="btnReport1_Click" SkinID="btn" Text="View Report Books" />
                 <asp:Button ID="btnReport2" runat="server" OnClick="btnReport2_Click" SkinID="btn" Text="View Report OverDue" />
-                <asp:Button ID="btnReport3" runat="server" OnClick="btnReport3_Click" SkinID="btn" Text="View Report Books" />
+                <asp:Button ID="btnReport3" runat="server" OnClick="btnReport3_Click" SkinID="btn" Text="View Report Issued Books" />
             </asp:View>
             <asp:View ID="View2" runat="server">
                 <asp:Label ID="lblSearch" runat="server" Text="User Name: " SkinID="lbl"/>
                 <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
                 <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" SkinID="btn" />
                 <br />
-                <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="RequestId" ForeColor="#333333" GridLines="None">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="RequestId" ForeColor="#333333" GridLines="None">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:CommandField ShowSelectButton="True" />
@@ -35,6 +36,7 @@
                         <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                         <asp:BoundField DataField="CoverType" HeaderText="CoverType" SortExpression="CoverType" />
                         <asp:BoundField DataField="Author" HeaderText="Author" ReadOnly="True" SortExpression="Author" />
+                        <asp:BoundField DataField="IssueId" HeaderText="IssueId" SortExpression="IssueId" />
                     </Columns>
                     <EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -47,7 +49,7 @@
                     <SortedDescendingCellStyle BackColor="#E9EBEF" />
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT Request.RequestId, Request.DateOfRequest, [User].Username, [User].BookLimit, [User].ReIssueLimit, [User].FirstName, [User].LastName, [User].AmountOwing, Book.Title, Book.CoverType, Author.FirstName + Author.LastName AS Author FROM Request INNER JOIN [User] ON Request.UserId = [User].UserId INNER JOIN Issue ON Request.IssueId = Issue.IssueId INNER JOIN Book ON Issue.BookId = Book.BookId INNER JOIN Author ON Book.AuthorId = Author.AuthorId"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT Request.RequestId, Request.DateOfRequest, [User].Username, [User].BookLimit, [User].ReIssueLimit, [User].FirstName, [User].LastName, [User].AmountOwing, Book.Title, Book.CoverType, Author.FirstName + Author.LastName AS Author, Request.IssueId FROM Request INNER JOIN [User] ON Request.UserId = [User].UserId INNER JOIN Issue ON Request.IssueId = Issue.IssueId INNER JOIN Book ON Issue.BookId = Book.BookId INNER JOIN Author ON Book.AuthorId = Author.AuthorId"></asp:SqlDataSource>
                 <asp:Button ID="btnAssign" runat="server" OnClick="btnAssign_Click" Text="Assign Selected Request" SkinID="btn" />
                 <br />
             </asp:View>
