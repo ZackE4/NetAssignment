@@ -16,7 +16,7 @@
                 <li style="float:left;border-right: 1px solid #bbb;"><a href="Welcome.aspx" style="text-decoration: none;display: block;padding: 4px;">Home</a></li>
                 <li style="float:left;border-right: 1px solid #bbb;"><a href="SearchBook.aspx" style="text-decoration: none;display: block;padding: 4px;">Search Book</a></li>
                 <li style="float:left;border-right: 1px solid #bbb;"><a href="SearchPublisher.aspx" style="text-decoration: none;display: block;padding: 4px;">Search Publisher</a></li>
-                <li style="float:left;border-right: 1px solid #bbb;"><a href="Profile.aspx" style="text-decoration: none;display: block;padding: 4px;">Profile</a></li>
+                <li style="float:left;border-right: 1px solid #bbb;"><a href="MyProfile.aspx" style="text-decoration: none;display: block;padding: 4px;">Profile</a></li>
             </ul>
         </nav>
     </header>
