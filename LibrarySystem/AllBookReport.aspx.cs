@@ -19,4 +19,9 @@ public partial class AllBookReport : System.Web.UI.Page
     {
 
     }
+
+    protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
+    {
+
+    }
 }
