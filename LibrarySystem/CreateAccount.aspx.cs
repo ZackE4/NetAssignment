@@ -1,4 +1,11 @@
-﻿using System;
+﻿/// <summary>
+/// This class is the code behind the create account page for registering a new user
+/// 
+/// By Zack Eichler
+/// </summary>
+/// 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,11 +22,21 @@ public partial class CreateAccount : System.Web.UI.Page
 
     }
 
+    /// <summary>
+    /// Returns to login page
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void Button1_Click(object sender, EventArgs e)
     {
         Response.Redirect("default.aspx");
     }
 
+    /// <summary>
+    /// Inserts new user into user table with information provided in textboxes on page
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         bool RegistrationSuccess = true;

@@ -1,4 +1,12 @@
-﻿using System;
+﻿/// <summary>
+/// This class is the code behind the Librarian All book report page
+/// which contains a gridview showing all Book/Author/Genre/Publisher combinations
+/// 
+/// By Zack Eichler
+/// </summary>
+/// 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

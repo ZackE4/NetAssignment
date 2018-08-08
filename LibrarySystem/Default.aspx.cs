@@ -1,4 +1,11 @@
-﻿using System;
+﻿/// <summary>
+/// This class is the code behind the login page for verifying username and password and logging the user in
+/// 
+/// By Zack Eichler
+/// </summary>
+/// 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +17,11 @@ using System.Data;
 
 public partial class _Default : System.Web.UI.Page
 {
-
+    /// <summary>
+    /// Checks if the page was redirected from create user page and shows a success message for registering if it was
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void Page_Load(object sender, EventArgs e)
     {
         bool newuser = false;
@@ -23,6 +34,11 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// Verifies username and password and logs user in if successful, otherwise shows error message
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         bool loginSuccess = false;
