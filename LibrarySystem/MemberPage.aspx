@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MemberPage.aspx.cs" Inherits="Member" Theme="SkinFile" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MemberPage.aspx.cs" Inherits="Member" Theme="MasterSkinFile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:Label ID="lblRentals" runat="server" Text="Current Rentals:"></asp:Label>
-    <asp:Label ID="lblRentalMissing" runat="server" Text="There are no Rentals on your account at the moment"></asp:Label>
+    <asp:Label ID="lblRentals" runat="server" Text="Current Rentals:" SkinID="lbl"></asp:Label>
+    <asp:Label ID="lblRentalMissing" runat="server" Text="There are no Rentals on your account at the moment" SkinID="lbl"></asp:Label>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="RentalId" ForeColor="#333333" GridLines="None">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
@@ -31,8 +31,8 @@
         <SortedDescendingCellStyle BackColor="#E9EBEF" />
         <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
-    <asp:Label ID="lblHistory" runat="server" Text="History:"></asp:Label>
-    <asp:Label ID="lblHistoryMissing" runat="server" Text="There is no Rental History"></asp:Label>
+    <asp:Label ID="lblHistory" runat="server" Text="History:" SkinID="lbl"></asp:Label>
+    <asp:Label ID="lblHistoryMissing" runat="server" Text="There is no Rental History" SkinID="lbl"></asp:Label>
     <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="RentalId" ForeColor="#333333" GridLines="None">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
@@ -59,6 +59,6 @@
         <SortedDescendingCellStyle BackColor="#E9EBEF" />
         <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
-    <asp:Label ID="lblOwing" runat="server" Text="Amount Owing:  "></asp:Label>
+    <asp:Label ID="lblOwing" runat="server" Text="Amount Owing:  " SkinID="lbl"></asp:Label>
     </asp:Content>
 

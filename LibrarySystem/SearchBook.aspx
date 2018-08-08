@@ -1,21 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SearchBook.aspx.cs" Inherits="SearchBook" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SearchBook.aspx.cs" Inherits="SearchBook" Theme="MasterSkinFile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div>
-        <asp:Label ID="lblTitle" runat="server" Text="Title:"></asp:Label>
+        <asp:Label ID="lblTitle" runat="server" Text="Title:" SkinID="lbl"></asp:Label>
         <asp:TextBox ID="txtTitle" runat="server"></asp:TextBox>
         <br />
-        <asp:Label ID="lblAuthor" runat="server" Text="Author Last Name:"></asp:Label>
+        <asp:Label ID="lblAuthor" runat="server" Text="Author Last Name:" SkinID="lbl"></asp:Label>
         <asp:TextBox ID="txtAuthor" runat="server"></asp:TextBox>
         <br />
-        <asp:Label ID="lblGenre" runat="server" Text="Genre:"></asp:Label>
+        <asp:Label ID="lblGenre" runat="server" Text="Genre:" SkinID="lbl"></asp:Label>
         <asp:DropDownList ID="ddlGenre" runat="server" DataSourceID="SqlDataSource2" DataTextField="Title" DataValueField="GenreId">
         </asp:DropDownList>
         <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT [Title], [GenreId] FROM [Genre]"></asp:SqlDataSource>
         <br />
-        <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
+        <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" SkinID="btn" />
     </div>
     <div>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT Book.BookID, Book.Title, Author.LastName + ', ' + Author.FirstName AS Author, Genre.Title AS Genre FROM Book INNER JOIN Genre ON Book.GenreId = Genre.GenreId INNER JOIN Author ON Book.AuthorId = Author.AuthorId"></asp:SqlDataSource>
@@ -42,12 +42,12 @@
     </div>
     <div>
 
-        <asp:Label ID="lblBookInfo" runat="server" Text="filler"></asp:Label>
+        <asp:Label ID="lblBookInfo" runat="server" Text="filler" SkinID="lbl"></asp:Label>
         <br />
-        <asp:Label ID="lblBookSyn" runat="server" Text="filler "></asp:Label>
+        <asp:Label ID="lblBookSyn" runat="server" Text="filler " SkinID="lbl"></asp:Label>
 
         <br />
-        <asp:Button ID="btnRequest" runat="server" Text="Request This Book" OnClick="btnRequest_Click" />
+        <asp:Button ID="btnRequest" runat="server" Text="Request This Book" OnClick="btnRequest_Click" SkinID="btn" />
 
     </div>
 </asp:Content>
