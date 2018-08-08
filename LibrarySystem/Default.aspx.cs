@@ -28,10 +28,11 @@ public partial class _Default : System.Web.UI.Page
         try { newuser = Convert.ToBoolean(Request["newuser"].ToString()); }
         catch { }
 
-        if (newuser)
+        if (newuser && !IsPostBack)
         {
             ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Registration Success, Please login')", true);
         }
+        Session.Clear();
     }
 
     /// <summary>
