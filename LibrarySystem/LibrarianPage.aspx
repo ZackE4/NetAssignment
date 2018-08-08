@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="LibrarianPage.aspx.cs" Inherits="LibrarianPage" Theme="SkinFile" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="LibrarianPage.aspx.cs" Inherits="LibrarianPage" Theme="MasterSkinFile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -7,15 +7,18 @@
         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
             
             <asp:View ID="View1" runat="server">
-                <asp:Button ID="btnRequests" runat="server" OnClick="btnRequests_Click" Text="View Book Requests" />
-                <asp:Button ID="btnUsers" runat="server" Text="Extend Due Date" OnClick="btnUsers_Click" />
-                <asp:Button ID="btnReturn" runat="server" Text="Return Book" OnClick="btnReturn_Click" />
-                <asp:Button ID="btnFees" runat="server" Text="Pay Fees" OnClick="btnFees_Click" />
+                <asp:Button ID="btnRequests" runat="server" OnClick="btnRequests_Click" Text="View Book Requests" SkinID="btn" />
+                <asp:Button ID="btnUsers" runat="server" Text="Extend Due Date" OnClick="btnUsers_Click" SkinID="btn" />
+                <asp:Button ID="btnReturn" runat="server" Text="Return Book" OnClick="btnReturn_Click" SkinID="btn" />
+                <asp:Button ID="btnFees" runat="server" Text="Pay Fees" OnClick="btnFees_Click" SkinID="btn" />
+                <asp:Button ID="btnReport1" runat="server" SkinID="btn" Text="View Report Books" />
+                <asp:Button ID="btnReport2" runat="server" SkinID="btn" Text="View Report OverDue" />
+                <asp:Button ID="Button1" runat="server" SkinID="btn" Text="Button" />
             </asp:View>
             <asp:View ID="View2" runat="server">
-                <asp:Label ID="lblSearch" runat="server" Text="User Name: "/>
+                <asp:Label ID="lblSearch" runat="server" Text="User Name: " SkinID="lbl"/>
                 <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
+                <asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" SkinID="btn" />
                 <br />
                 <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="RequestId" ForeColor="#333333" GridLines="None">
                     <AlternatingRowStyle BackColor="White" />
@@ -45,7 +48,7 @@
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT Request.RequestId, Request.DateOfRequest, [User].Username, [User].BookLimit, [User].ReIssueLimit, [User].FirstName, [User].LastName, [User].AmountOwing, Book.Title, Book.CoverType, Author.FirstName + Author.LastName AS Author FROM Request INNER JOIN [User] ON Request.UserId = [User].UserId INNER JOIN Issue ON Request.IssueId = Issue.IssueId INNER JOIN Book ON Issue.BookId = Book.BookId INNER JOIN Author ON Book.AuthorId = Author.AuthorId"></asp:SqlDataSource>
-                <asp:Button ID="btnAssign" runat="server" OnClick="btnAssign_Click" Text="Assign Selected Request" />
+                <asp:Button ID="btnAssign" runat="server" OnClick="btnAssign_Click" Text="Assign Selected Request" SkinID="btn" />
                 <br />
             </asp:View>
               <asp:View ID="View3" runat="server">
@@ -79,27 +82,29 @@
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:NetClassConnectionString %>" SelectCommand="SELECT Rental.RentalId, Rental.UserId, [User].Username, [User].FirstName, [User].LastName,  Rental.RentalDate, Rental.DueDate, Rental.ReturnDate, Rental.Fees, Rental.Comments FROM Rental INNER JOIN [User] ON Rental.UserId = [User].UserId"></asp:SqlDataSource>
-                <asp:Button ID="btnDate" runat="server" Text="Change Selected Due Date" OnClick="btnDate_Click" />
+                <asp:Button ID="btnDate" runat="server" Text="Change Selected Due Date" OnClick="btnDate_Click" SkinID="btn" />
                 <br />
-                <asp:Label ID="lblNewDate" runat="server" Text="New Due Date:"></asp:Label>
+                <asp:Label ID="lblNewDate" runat="server" Text="New Due Date:" SkinID="lbl"></asp:Label>
                 <asp:TextBox ID="txtNewDate" runat="server"></asp:TextBox>
-                <asp:Button ID="btnDateChange" runat="server" Text="Change Date" OnClick="btnDateChange_Click" />
+                <asp:Button ID="btnDateChange" runat="server" Text="Change Date" OnClick="btnDateChange_Click" SkinID="btn" />
             </asp:View>
             <asp:View ID="View4" runat="server">
-                <asp:Label ID="lblssueId" runat="server" Text="Issue ID"></asp:Label>
+                <asp:Label ID="lblssueId" runat="server" Text="Issue ID" SkinID="lbl"></asp:Label>
                 <asp:TextBox ID="txtIssueId" runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearchIssue" runat="server" OnClick="btnSearchIssue_Click" Text="Search" />
+                <asp:Button ID="btnSearchIssue" runat="server" OnClick="btnSearchIssue_Click" Text="Search" SkinID="btn" />
                 <br />
-                <asp:Label ID="lblIssueInfo" runat="server" Text="No Issue Found"></asp:Label>
+                <asp:Label ID="lblIssueInfo" runat="server" Text="No Issue Found" SkinID="lbl"></asp:Label>
                 <br />
-                <asp:Button ID="btnReturnBook" runat="server" Text="Return Book" OnClick="btnReturnBook_Click" />
+                <asp:Button ID="btnReturnBook" runat="server" Text="Return Book" OnClick="btnReturnBook_Click" SkinID="btn" />
             </asp:View>
             <asp:View ID="View5" runat="server">
-                <asp:Label ID="lblUserPayment" runat="server" Text="Search UserId Fees:"></asp:Label>
+                <asp:Label ID="lblUserPayment" runat="server" Text="Search UserId Fees:" SkinID="lbl"></asp:Label>
                 <asp:TextBox ID="txtUserId" runat="server"></asp:TextBox>
-                <asp:Button ID="btnFeesFind" runat="server" Text="Search Fees" />
-                <asp:GridView ID="GridView3" runat="server">
-                </asp:GridView>
+                <asp:Button ID="btnFeesFind" runat="server" Text="Search Fee" OnClick="btnFeesFind_Click" SkinID="btn" />
+                <br />
+                <asp:Label ID="lblFee" runat="server" Text="fee" SkinID="lbl"></asp:Label>
+                <br />
+                <asp:Button ID="btnPayFees" runat="server" OnClick="btnPayFees_Click" Text="Pay Fees" SkinID="btn" />
             </asp:View>
         </asp:MultiView>
     </div>

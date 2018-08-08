@@ -468,6 +468,62 @@ public partial class LibrarianPage : System.Web.UI.Page
     protected void btnFees_Click(object sender, EventArgs e)
     {
         MultiView1.ActiveViewIndex = 4;
+        lblFee.Visible = false;
+    }
+
+    private void searchFee()
+    {
+        string userId = txtUserId.Text;
+        int userID = 0;
+        if (!int.TryParse(userId, out userID))
+        {
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Issue Id for search needs to be a number')", true);
+        }
+        else
+        {
+            if (userID == 0)
+            {
+
+            }
+            else
+            {
+                string sqlCommand = "SELECT AmountOwing FROM [User] WHERE UserId = @UserId";
+                conn.ConnectionString = conString;
+                SqlCommand cmd = conn.CreateCommand();
+
+                try
+                {
+                    cmd.CommandText = sqlCommand;
+                    conn.Open();
+                    SqlParameter userIdParam = new SqlParameter();
+                    userIdParam.ParameterName = "@UserId";
+                    userIdParam.Value = txtUserId.Text;
+                    cmd.Parameters.Add(userIdParam);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    string fee = " ";
+                    if (!reader.HasRows)
+                    {
+                        lblFee.Text = "The Fee for the user is: 0";
+                    }
+                    while (reader.Read())
+                    {
+                        fee = reader.GetDouble(0).ToString();
+                        lblFee.Text = "The Fee for the user is: " + fee;
+                    }
+                    lblFee.Visible = true;
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+            }
+        }
     }
 
     protected void btnReturnBook_Click(object sender, EventArgs e)
@@ -658,5 +714,143 @@ public partial class LibrarianPage : System.Web.UI.Page
             cmd.Dispose();
             conn.Close();
         }
+    }
+
+    protected void btnFeesFind_Click(object sender, EventArgs e)
+    {
+        searchFee();
+    }
+
+    protected void btnPayFees_Click(object sender, EventArgs e)
+    {
+        string userId = txtUserId.Text;
+        int userID = 0;
+        int RentalId = 0;
+        float fees = 0;
+        Boolean insertP = false;
+        if (!int.TryParse(userId, out userID))
+        {
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Issue Id for search needs to be a number')", true);
+        }
+        else
+        {
+            if (userID == 0)
+            {
+
+            }
+            else
+            {
+                string sqlCommand = "SELECT * FROM Rental WHERE UserId = @UserId";
+                conn.ConnectionString = conString;
+                SqlCommand cmd = conn.CreateCommand();
+
+                try
+                {
+                    cmd.CommandText = sqlCommand;
+                    conn.Open();
+                    SqlParameter userIdParam = new SqlParameter();
+                    userIdParam.ParameterName = "@UserId";
+                    userIdParam.Value = userID;
+                    cmd.Parameters.Add(userIdParam);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        insertP = true;
+                        RentalId = reader.GetInt32(0);
+                        fees = (float) reader.GetInt32(6);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+                if (insertP)
+                {
+                    insertPayment(userID, RentalId, fees);
+                }
+            }
+        }
+    }
+
+    private void insertPayment(int userID, int rentalId, float fees)
+    {
+               string sqlCommand = "INSERT INTO Payment (RentalId, UserId, Fees, AmountPaid, DateOfPayment) SET (@RentalId, @UserId, @Fees, @Fees, GETDATE())  WHERE UserId = @UserId";
+                conn.ConnectionString = conString;
+                SqlCommand cmd = conn.CreateCommand();
+                try
+                {
+                    cmd.CommandText = sqlCommand;
+                    conn.Open();
+                    SqlParameter userIdParam = new SqlParameter();
+                    userIdParam.ParameterName = "@UserId";
+                    userIdParam.Value = userID;
+                    SqlParameter rentalParam = new SqlParameter();
+                    rentalParam.ParameterName = "@RentalId";
+                    rentalParam.Value = rentalId;
+                    SqlParameter feesParam = new SqlParameter();
+                    feesParam.ParameterName = "@Fees";
+                    feesParam.Value = rentalId;
+                    cmd.Parameters.Add(feesParam);
+                    cmd.Parameters.Add(rentalParam);
+                    cmd.Parameters.Add(userIdParam);
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    conn.Close();
+                }
+        subtractUser(userID);
+    }
+
+    private void subtractUser(int userId)
+    {
+        string sqlCommand = "UPDATE [User] SET AmountOwing = 0 WHERE UserId = @UserId";
+        conn.ConnectionString = conString;
+        SqlCommand cmd = conn.CreateCommand();
+        try
+        {
+            cmd.CommandText = sqlCommand;
+            conn.Open();
+            SqlParameter userIdParam = new SqlParameter();
+            userIdParam.ParameterName = "@UserId";
+            userIdParam.Value = userId;
+            cmd.Parameters.Add(userIdParam);
+            cmd.ExecuteScalar();
+        }
+        catch (Exception ex)
+        {
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Error", "alert('An Error has occoured')", true);
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+    }
+
+    protected void btnReport1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(".aspx");
+    }
+
+    protected void btnReport2_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(".aspx");
+    }
+
+    protected void btnReport3_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(".aspx");
     }
 }
