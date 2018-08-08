@@ -115,7 +115,7 @@ public partial class SearchBook : System.Web.UI.Page
     }
 
     /// <summary>
-    /// Set up
+    /// Set up to grab the specific data based on the book selected
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -165,7 +165,11 @@ public partial class SearchBook : System.Web.UI.Page
             btnRequest.Enabled = true;
         }
     }
-
+    /// <summary>
+    /// Grabs the count of books available
+    /// </summary>
+    /// <param name="bookID"></param>
+    /// <returns></returns>
     public int bookCount(int bookID)
     {
         string sqlCommand = "SELECT Count(BookID) FROM Issue WHERE BookID = " + bookID + " AND Status = 'Available'";
@@ -196,7 +200,11 @@ public partial class SearchBook : System.Web.UI.Page
         lblBookSyn.Text = "Book Count: " + count;
         return count;
     }
-
+    /// <summary>
+    /// Sets it up to request the book
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnRequest_Click(object sender, EventArgs e)
     {
         try
@@ -250,7 +258,10 @@ public partial class SearchBook : System.Web.UI.Page
             Response.Redirect("default.aspx");
         }
     }
-
+    /// <summary>
+    /// changes status to Reserved
+    /// </summary>
+    /// <param name="issueId"></param>
     private void changeStatus(int issueId)
     {
         string sqlCommand = "UPDATE Issue SET Status = 'Reserved' WHERE IssueId =" + issueId;
@@ -274,7 +285,11 @@ public partial class SearchBook : System.Web.UI.Page
             conn.Close();
         }
     }
-
+    /// <summary>
+    /// finds the issues based off the bookId
+    /// </summary>
+    /// <param name="bookId"></param>
+    /// <returns></returns>
     private int findIssue(int bookId)
     {
         int issueId = 0;
@@ -318,7 +333,11 @@ public partial class SearchBook : System.Web.UI.Page
         }
         return issueId;
     }
-
+    /// <summary>
+    /// checks the book rented
+    /// </summary>
+    /// <param name="memberID"></param>
+    /// <returns></returns>
     public int booksRented(int memberID)
     {
         int booksRented = 100;

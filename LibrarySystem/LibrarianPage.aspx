@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div>
-        <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Names="Arial" Font-Size="26pt" ForeColor="#000066" Text="Librarian Page"></asp:Label>
+        <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Names="Arial" Font-Size="26pt" ForeColor="#000066" Text="Librarian Page"></asp:Label><br />
         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
             
             <asp:View ID="View1" runat="server">

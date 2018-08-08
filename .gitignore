@@ -67,3 +67,7 @@ LibrarySystem/Web.config
 LibrarySystem/Web.config
 .vs/LibrarySystem/v15/.suo
 .vs/LibrarySystem/v15/.suo
+LibrarySystem/LibrarianPage.aspx
+LibrarySystem/LibrarianPage.aspx.cs
+LibrarySystem/SearchBook.aspx.cs
+.vs/LibrarySystem/v15/.suo
