@@ -1,4 +1,10 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+﻿<!--
+<summary>
+This is the code behind the Master page keeping it set up and stylish for all the other pages
+By Matthew Erenberg
+</summary>
+-->
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
 
 <!DOCTYPE html>
 
@@ -17,6 +23,8 @@
                 <li style="float:left;border-right: 1px solid #bbb;"><a href="SearchBook.aspx" style="text-decoration: none;display: block;padding: 4px;">Search Book</a></li>
                 <li style="float:left;border-right: 1px solid #bbb;"><a href="SearchPublisher.aspx" style="text-decoration: none;display: block;padding: 4px;">Search Publisher</a></li>
                 <li style="float:left;border-right: 1px solid #bbb;"><a href="MyProfile.aspx" style="text-decoration: none;display: block;padding: 4px;">Profile</a></li>
+                <li style="float:left;border-right: 1px solid #bbb;"><a href="Default.aspx" style="text-decoration: none;display: block;padding: 4px;">Log Out</a></li>
+          
             </ul>
         </nav>
     </header>

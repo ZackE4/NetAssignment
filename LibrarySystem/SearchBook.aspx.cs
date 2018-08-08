@@ -1,4 +1,10 @@
-﻿using System;
+﻿/// <summary>
+/// This class is the code behind the Search Book page for searching books in the system by Author or title and requesting the book
+/// 
+/// By Matthew Erenberg
+/// </summary>
+/// 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,14 +19,22 @@ public partial class SearchBook : System.Web.UI.Page
     private SqlConnection conn = new SqlConnection();
     private string conString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["NetClassConnectionString"].ConnectionString; 
     private SqlCommand cmd;
-
+    /// <summary>
+    /// Page load sets it up to hide any information at the start to have a cleaner design
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void Page_Load(object sender, EventArgs e)
     {
         lblBookInfo.Visible = false;
         lblBookSyn.Visible = false;
         btnRequest.Visible = false;
     }
-
+    /// <summary>
+    /// A method set up to add % to the beginning and end of a work to find any instance of that search
+    /// </summary>
+    /// <param name="searchWord"></param>
+    /// <returns></returns>
     public string mergeSearch(string searchWord)
     {
         string temp = "%";
@@ -29,13 +43,18 @@ public partial class SearchBook : System.Web.UI.Page
         searchWord += "%";
         return searchWord;
     }
-
+    /// <summary>
+    /// This will execute the search feature of the code allowing to find by title or author
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSearch_Click(object sender, EventArgs e)
     {
+        //grabs the text values from text feilds
         string title = txtTitle.Text;
         string authorLast = txtAuthor.Text;
         string genre = ddlGenre.SelectedValue.ToString();
-
+        //checks if they are null/empty
         if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(authorLast))
         {
             ClientScript.RegisterClientScriptBlock(this.GetType(), "InfoMissing", "alert('Either Title or Author need to be filled to search')", true);
@@ -70,13 +89,14 @@ public partial class SearchBook : System.Web.UI.Page
 
             conn.Open();
             SqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    lblBookInfo.Text = "There is Currently No Books Found";
+                    lblBookInfo.Visible = true;
+                }
+
             DataTable dt = new DataTable();
             dt.Load(reader);
-                
-           /* if (dt.Rows.Count.Equals(0))
-            {
-
-            }*/
             GridView1.DataSource = dt;
             GridView1.DataBind();
             reader.Close();
@@ -94,6 +114,11 @@ public partial class SearchBook : System.Web.UI.Page
 
     }
 
+    /// <summary>
+    /// Set up
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
     {
         int bookID = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
