@@ -17,7 +17,9 @@ public partial class LibrarianPage : System.Web.UI.Page
     {
         //MultiView1.ActiveViewIndex = 0;
     }
-
+    /// <summary>
+    /// Binds the data for the first grid view to display all the issues pending
+    /// </summary>
     private void dataBindGrid()
     {
         string sqlCommand = "SELECT Request.RequestId, Request.DateOfRequest, [User].Username, [User].BookLimit, [User].ReIssueLimit, [User].FirstName, [User].LastName, [User].AmountOwing, Book.Title, Book.CoverType, Author.FirstName + ', ' + Author.LastName AS Author, Request.IssueId FROM Request INNER JOIN [User] ON Request.UserId = [User].UserId INNER JOIN Issue ON Request.IssueId = Issue.IssueId INNER JOIN Book ON Issue.BookId = Book.BookId INNER JOIN Author ON Book.AuthorId = Author.AuthorId";
@@ -45,13 +47,21 @@ public partial class LibrarianPage : System.Web.UI.Page
             conn.Close();
         }
     }
-
+    /// <summary>
+    /// Binds the data on load and switches the view
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnRequests_Click(object sender, EventArgs e)
     {
         dataBindGrid();
         MultiView1.ActiveViewIndex = 1;
     }
-
+    /// <summary>
+    /// Searches by user name to find the specific requests
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         string userName = txtUser.Text;
@@ -94,7 +104,11 @@ public partial class LibrarianPage : System.Web.UI.Page
             }
         }
     }
-
+    /// <summary>
+    /// Assigns the selected book from the grid view to the specific user in the row
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnAssign_Click(object sender, EventArgs e)
     {
         if (GridView1.SelectedIndex == -1)
@@ -114,7 +128,7 @@ public partial class LibrarianPage : System.Web.UI.Page
                     }
                     else
                     {
-                        int[] ids = grabRequest(requestId);
+                        int[] ids = grabRequest(requestId); // grabs info to insert for rental
                         DateTime rentalDate = DateTime.Now;
                         DateTime dueDate = rentalDate.AddDays(7);
                         string sqlCommand = "INSERT INTO Rental (IssueId, UserId, RentalDate, DueDate, Fees) VALUES (" + ids[0] + "," + ids[1] + ",'" + rentalDate.ToString() + "','" + dueDate.ToString() + "'," + 0 + ")";
@@ -148,7 +162,10 @@ public partial class LibrarianPage : System.Web.UI.Page
                 }
         } 
     }
-
+    /// <summary>
+    /// changes the status for the issue that its now loaned
+    /// </summary>
+    /// <param name="issueId"></param>
     private void issueStatusChange(int issueId)
     {
         DataRow dr = UserTool.GetUserInfo(Session["User"].ToString());
@@ -193,7 +210,10 @@ public partial class LibrarianPage : System.Web.UI.Page
             Response.Redirect("Default.aspx");
         }
     }
-
+    /// <summary>
+    /// Deletes the request since there is no need for it because it was approved and on loan/set as rental
+    /// </summary>
+    /// <param name="requestId"></param>
     private void deleteRequest(int requestId)
     {
                     string sqlCommand = "DELETE FROM Request WHERE RequestId ="+requestId;
@@ -216,7 +236,11 @@ public partial class LibrarianPage : System.Web.UI.Page
                         conn.Close();
                     }
     }
-
+    /// <summary>
+    /// Grabs the ids necessary to insert rental to assign selected book
+    /// </summary>
+    /// <param name="requestId"></param>
+    /// <returns></returns>
     private int[] grabRequest(int requestId)
     {
         int[] ids = new int[2];
@@ -254,7 +278,11 @@ public partial class LibrarianPage : System.Web.UI.Page
         }
         return ids;
     }
-
+    /// <summary>
+    /// switches views and sets it up to look pretty
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnUsers_Click(object sender, EventArgs e)
     {
         MultiView1.ActiveViewIndex =2;
@@ -263,7 +291,9 @@ public partial class LibrarianPage : System.Web.UI.Page
         txtNewDate.Visible = false;
         btnDateChange.Visible = false;
     }
-
+    /// <summary>
+    /// binds the grid view 2 so we can change the dates for rentals
+    /// </summary>
     private void dataBindGrid2()
     {
             string sqlCommand = "SELECT Rental.RentalId, Rental.UserId, [User].Username, [User].FirstName, [User].LastName,  Rental.RentalDate, Rental.DueDate, Rental.ReturnDate, Rental.Fees, Rental.Comments FROM Rental INNER JOIN [User] ON Rental.UserId = [User].UserId";
@@ -291,7 +321,11 @@ public partial class LibrarianPage : System.Web.UI.Page
                 conn.Close();
             }
     }
-
+    /// <summary>
+    /// shows the date for the selected grid view
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnDate_Click(object sender, EventArgs e)
     {
         if (GridView2.SelectedIndex == -1)
@@ -306,7 +340,10 @@ public partial class LibrarianPage : System.Web.UI.Page
             grabDate(GridView2.SelectedIndex);
         }
     }
-
+    /// <summary>
+    /// Displays the date so users can edit
+    /// </summary>
+    /// <param name="selectedIndex"></param>
     private void grabDate(int selectedIndex)
     {
         int rentalId = Convert.ToInt32(GridView2.SelectedRow.Cells[1].Text);
@@ -337,7 +374,11 @@ public partial class LibrarianPage : System.Web.UI.Page
             conn.Close();
         }
     }
-
+    /// <summary>
+    /// enables the search for the specified user for changing the due date for the specified rental
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSearchUserId_Click(object sender, EventArgs e)
     {
         string userID = txtRentalUserId.Text;
@@ -388,8 +429,11 @@ public partial class LibrarianPage : System.Web.UI.Page
         
     }
 
-
-
+/// <summary>
+/// changes the specific date
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
     protected void btnDateChange_Click(object sender, EventArgs e)
     {
         string published = txtNewDate.Text;
@@ -428,13 +472,21 @@ public partial class LibrarianPage : System.Web.UI.Page
             dataBindGrid2();
         }
     }
-
+    /// <summary>
+    /// fills date on index change
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
     {
         dataBindGrid2();
         grabDate(GridView2.SelectedIndex);
     }
-
+    /// <summary>
+    /// searches the issue
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnSearchIssue_Click(object sender, EventArgs e)
     {
         string issueID = txtIssueId.Text;
@@ -506,18 +558,28 @@ public partial class LibrarianPage : System.Web.UI.Page
         }
 
     }
-
+    /// <summary>
+    /// switches view for return
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnReturn_Click(object sender, EventArgs e)
     {
         MultiView1.ActiveViewIndex = 3;
     }
-
+    /// <summary>
+    /// switch to fee view
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnFees_Click(object sender, EventArgs e)
     {
         MultiView1.ActiveViewIndex = 4;
         lblFee.Visible = false;
     }
-
+    /// <summary>
+    /// set up to search the fees outstanding by the specific user
+    /// </summary>
     private void searchFee()
     {
         string userId = txtUserId.Text;
@@ -550,7 +612,7 @@ public partial class LibrarianPage : System.Web.UI.Page
                     string fee = " ";
                     if (!reader.HasRows)
                     {
-                        lblFee.Text = "The Fee for the user is: 0";
+                        lblFee.Text = "The Fee for the user is: $0";
                     }
                     while (reader.Read())
                     {
@@ -572,7 +634,11 @@ public partial class LibrarianPage : System.Web.UI.Page
             }
         }
     }
-
+    /// <summary>
+    /// used to return the book selected and calculate fees/update rental
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnReturnBook_Click(object sender, EventArgs e)
     {
         int[] ids = getIds();
@@ -580,7 +646,10 @@ public partial class LibrarianPage : System.Web.UI.Page
         updateIssue(ids[1]);
         updateRental(ids[0], fee);
     }
-
+    /// <summary>
+    /// grabs information from rental to change other tables for returned books
+    /// </summary>
+    /// <returns></returns>
     private int[] getIds()
     {
                 int[] ids = new int[3];
@@ -617,7 +686,12 @@ public partial class LibrarianPage : System.Web.UI.Page
                 }
         return ids;
     }
-
+    /// <summary>
+    ///  Adds the fee of how much the owe based on the return date
+    /// </summary>
+    /// <param name="returnUserId"></param>
+    /// <param name="returnRentalId"></param>
+    /// <returns></returns>
     private float updateUserAmountOwing(int returnUserId, int returnRentalId)
     {
         float amountOwing = grabAmount(returnRentalId);
@@ -659,7 +733,11 @@ public partial class LibrarianPage : System.Web.UI.Page
         }
         return amountOwing;
     }
-
+    /// <summary>
+    /// grabs the amount owing from the rental
+    /// </summary>
+    /// <param name="returnRentalId"></param>
+    /// <returns></returns>
     private float grabAmount(int returnRentalId)
     {
         float dateDiff = 0;
@@ -698,7 +776,11 @@ public partial class LibrarianPage : System.Web.UI.Page
                 }
         return dateDiff;
     }
-
+    /// <summary>
+    /// updates rental to set up that its been returned and set the feees
+    /// </summary>
+    /// <param name="returnRentalId"></param>
+    /// <param name="fee"></param>
     private void updateRental(int returnRentalId, float fee)
     {
         string sqlCommand = "UPDATE Rental SET ReturnDate = @ReturnDate, Fees = @Fees WHERE RentalId=@RentalId";
@@ -734,7 +816,10 @@ public partial class LibrarianPage : System.Web.UI.Page
             conn.Close();
         }
     }
-
+    /// <summary>
+    /// updates the issue to available since its been returned
+    /// </summary>
+    /// <param name="returnIssueId"></param>
     private void updateIssue(int returnIssueId)
     {
         string sqlCommand = "UPDATE Issue SET Status = 'Available' WHERE IssueId=@IssueId";
@@ -762,17 +847,24 @@ public partial class LibrarianPage : System.Web.UI.Page
             conn.Close();
         }
     }
-
+    /// <summary>
+    /// searchs the fee
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnFeesFind_Click(object sender, EventArgs e)
     {
         searchFee();
     }
-
+    /// <summary>
+    /// User selected has their fees payed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void btnPayFees_Click(object sender, EventArgs e)
     {
         string userId = txtUserId.Text;
         int userID = 0;
-        int RentalId = 0;
         float fees = 0;
         Boolean insertP = false;
         if (!int.TryParse(userId, out userID))
@@ -787,7 +879,7 @@ public partial class LibrarianPage : System.Web.UI.Page
             }
             else
             {
-                string sqlCommand = "SELECT * FROM Rental WHERE UserId = @UserId";
+                string sqlCommand = "SELECT AmountOwing FROM [User] WHERE UserId = @UserId";
                 conn.ConnectionString = conString;
                 SqlCommand cmd = conn.CreateCommand();
 
@@ -803,8 +895,7 @@ public partial class LibrarianPage : System.Web.UI.Page
                     if (reader.HasRows)
                     {
                         insertP = true;
-                        RentalId = reader.GetInt32(0);
-                        fees = (float) reader.GetInt32(6);
+                        fees = (float) reader.GetInt32(1);
                     }
                     reader.Close();
                 }
@@ -819,15 +910,20 @@ public partial class LibrarianPage : System.Web.UI.Page
                 }
                 if (insertP)
                 {
-                    insertPayment(userID, RentalId, fees);
+                    insertPayment(userID, fees);
                 }
             }
         }
     }
-
-    private void insertPayment(int userID, int rentalId, float fees)
+    /// <summary>
+    /// inserts into payment as a record to record
+    /// </summary>
+    /// <param name="userID"></param>
+    /// <param name="rentalId"></param>
+    /// <param name="fees"></param>
+    private void insertPayment(int userID, float fees)
     {
-               string sqlCommand = "INSERT INTO Payment (RentalId, UserId, Fees, AmountPaid, DateOfPayment) SET (@RentalId, @UserId, @Fees, @Fees, GETDATE())  WHERE UserId = @UserId";
+               string sqlCommand = "INSERT INTO Payment (UserId, Fees, AmountPaid, DateOfPayment) Values (@UserId, @Fees, @Fees, GETDATE()) WHERE UserId = @UserId";
                 conn.ConnectionString = conString;
                 SqlCommand cmd = conn.CreateCommand();
                 try
@@ -837,14 +933,10 @@ public partial class LibrarianPage : System.Web.UI.Page
                     SqlParameter userIdParam = new SqlParameter();
                     userIdParam.ParameterName = "@UserId";
                     userIdParam.Value = userID;
-                    SqlParameter rentalParam = new SqlParameter();
-                    rentalParam.ParameterName = "@RentalId";
-                    rentalParam.Value = rentalId;
                     SqlParameter feesParam = new SqlParameter();
                     feesParam.ParameterName = "@Fees";
-                    feesParam.Value = rentalId;
+                    feesParam.Value = fees;
                     cmd.Parameters.Add(feesParam);
-                    cmd.Parameters.Add(rentalParam);
                     cmd.Parameters.Add(userIdParam);
                     cmd.ExecuteScalar();
                 }
@@ -859,7 +951,10 @@ public partial class LibrarianPage : System.Web.UI.Page
                 }
         subtractUser(userID);
     }
-
+    /// <summary>
+    /// resets the users amountowing
+    /// </summary>
+    /// <param name="userId"></param>
     private void subtractUser(int userId)
     {
         string sqlCommand = "UPDATE [User] SET AmountOwing = 0 WHERE UserId = @UserId";
@@ -874,6 +969,7 @@ public partial class LibrarianPage : System.Web.UI.Page
             userIdParam.Value = userId;
             cmd.Parameters.Add(userIdParam);
             cmd.ExecuteScalar();
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "Success", "alert('The amount has been payed')", true);
         }
         catch (Exception ex)
         {
@@ -885,7 +981,7 @@ public partial class LibrarianPage : System.Web.UI.Page
             conn.Close();
         }
     }
-
+    //redirects to specific reports below
     protected void btnReport1_Click(object sender, EventArgs e)
     {
         Response.Redirect("AllBookReport.aspx");
